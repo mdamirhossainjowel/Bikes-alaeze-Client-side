@@ -1,23 +1,24 @@
 import React from "react";
-import {
-  useSignInWithEmailAndPassword,
-  useSignInWithGoogle,
-} from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 
-const Login = () => {
+const Registration = () => {
   const { register, handleSubmit } = useForm();
+  const [updateProfile] = useUpdateProfile(auth);
   const navigate = useNavigate();
-
   const [
-    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
     userEmailPass,
     loadingEmailPass,
     errorEmailPass,
-  ] = useSignInWithEmailAndPassword(auth);
+  ] = useCreateUserWithEmailAndPassword(auth);
   const [signInWithGoogle, usergoogle, loadinggoogle, errorgoogle] =
     useSignInWithGoogle(auth);
   if (errorEmailPass || errorgoogle) {
@@ -33,8 +34,13 @@ const Login = () => {
   if (userEmailPass || usergoogle) {
     navigate("/");
   }
-  const onSubmit = (data) => {
-    signInWithEmailAndPassword(data.Email, data.Password);
+  const onSubmit = async (data) => {
+    if (data.Password === data.Confirm_Password) {
+      await updateProfile({ displayName: data.Name });
+      await createUserWithEmailAndPassword(data.Email, data.Confirm_Password);
+    } else {
+      alert("Both Password Should Be Same");
+    }
   };
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl mx-6 lg:w-2/3 lg:mx-auto my-14">
@@ -46,39 +52,33 @@ const Login = () => {
       </figure>
       <div className="card-body lg:w-1/2">
         <h2 className="text-2xl font-bold text-accent text-center mb-4">
-          LOGIN
+          Registration
         </h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
-            placeholder="Enter Your Email"
+            placeholder="Full Name"
+            {...register("Name", { required: true })}
+          />
+          <input
+            className="input input-bordered input-accent w-full max-w-lg mb-3"
+            placeholder="Email"
             {...register("Email", { required: true })}
           />
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
-            placeholder="Enter Your Password"
+            placeholder=" Password"
             {...register("Password", { required: true })}
           />
-
-          <label className="flex justify-between">
-            <div className="flex">
-              <input
-                type="checkbox"
-                className="checkbox checkbox-accent mr-3 mb-3"
-              />
-              <span className="label-text">Remember me</span>
-            </div>
-            <div>
-              <Link to="/" className="underline text-accent">
-                Forgot Password
-              </Link>
-            </div>
-          </label>
-
+          <input
+            className="input input-bordered input-accent w-full max-w-lg mb-3"
+            placeholder="Confirm Password"
+            {...register("Confirm_Password", { required: true })}
+          />
           <input className="btn btn-secondary w-full" type="submit" />
         </form>
-        <Link to="/registration" className="underline text-accent">
-          New to Bikes Alaeze? Create Account.
+        <Link to="/login" className="underline text-accent">
+          Already Have Account?Please Login
         </Link>
 
         <div className="divider">OR</div>
@@ -95,4 +95,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registration;
