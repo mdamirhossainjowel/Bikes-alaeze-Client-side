@@ -1,40 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const MyOrder = () => {
+  const [purchages,setPurchages]=useState([]);
+  const [user]=useAuthState(auth);
+  useEffect(() => {
+    fetch(`http://localhost:5000/mypurchage?Email=${user.email}`)
+    .then(res=>res.json())
+    .then(result=>setPurchages(result))
+  }, [user]);
     return (
         <div className="overflow-x-auto">
         <table className="table w-full">
-  
           <thead>
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
+            {
+              purchages.map((purchage,index)=>
+                <tr>
+                <th>{index+1}</th>
+                <td>{purchage.Name}</td>
+                <td>{purchage.Product}</td>
+                <td>{purchage.Quantity}</td>
+                <td>{purchage.Price}</td>
+              </tr>)
+
+            }
         
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
+           
   
-            <tr>
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-            </tr>
-    
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
+            
           </tbody>
         </table>
       </div>

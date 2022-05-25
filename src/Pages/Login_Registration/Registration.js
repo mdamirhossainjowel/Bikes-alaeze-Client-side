@@ -8,6 +8,7 @@ import {
 } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
+import useToken from "../../hook/useToken";
 
 const Registration = () => {
   const { register, handleSubmit } = useForm();
@@ -21,23 +22,19 @@ const Registration = () => {
   ] = useCreateUserWithEmailAndPassword(auth);
   const [signInWithGoogle, usergoogle, loadinggoogle, errorgoogle] =
     useSignInWithGoogle(auth);
-  if (errorEmailPass || errorgoogle) {
-    return (
-      <div>
-        <p>Error: {errorEmailPass?.message || errorgoogle?.message}</p>
-      </div>
-    );
-  }
+
+  const [token] = useToken(userEmailPass || usergoogle);
+
   if (loadingEmailPass || loadinggoogle) {
     return <Loading></Loading>;
   }
-  if (userEmailPass || usergoogle) {
+  if (token) {
     navigate("/");
   }
   const onSubmit = async (data) => {
     if (data.Password === data.Confirm_Password) {
-      await updateProfile({ displayName: data.Name });
       await createUserWithEmailAndPassword(data.Email, data.Confirm_Password);
+      await updateProfile({ displayName: data.Name });
     } else {
       alert("Both Password Should Be Same");
     }
@@ -60,21 +57,36 @@ const Registration = () => {
             placeholder="Full Name"
             {...register("Name", { required: true })}
           />
+          {errors.Name?.type === "required" && "Name is required"}
+
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
             placeholder="Email"
             {...register("Email", { required: true })}
           />
+          {errors.Email?.type === "required" && "Email is required"}
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
             placeholder=" Password"
             {...register("Password", { required: true })}
           />
+          {errors.Password?.type === "required" && "Password is required"}
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
             placeholder="Confirm Password"
             {...register("Confirm_Password", { required: true })}
           />
+          {errors.Confirm_Password?.type === "required" &&
+            "Password is required"}
+
+          {errorEmailPass || errorgoogle ? (
+            <p className="text-red-400">
+              Error: {errorEmailPass?.message || errorgoogle?.message}
+            </p>
+          ) : (
+            ""
+          )}
+
           <input className="btn btn-secondary w-full" type="submit" />
         </form>
         <Link to="/login" className="underline text-accent">

@@ -20,13 +20,7 @@ const Login = () => {
   ] = useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle, usergoogle, loadinggoogle, errorgoogle] =
     useSignInWithGoogle(auth);
-  if (errorEmailPass || errorgoogle) {
-    return (
-      <div>
-        <p>Error: {errorEmailPass?.message || errorgoogle?.message}</p>
-      </div>
-    );
-  }
+
   if (loadingEmailPass || loadinggoogle) {
     return <Loading></Loading>;
   }
@@ -54,11 +48,19 @@ const Login = () => {
             placeholder="Enter Your Email"
             {...register("Email", { required: true })}
           />
+          {errors.Email?.type === "required" && "Email is required"}
+
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
             placeholder="Enter Your Password"
             {...register("Password", { required: true })}
           />
+          {errors.Password?.type === "required" && "Password is required"}
+          {errorEmailPass || errorgoogle ? (
+            <p>Error: {errorEmailPass?.message || errorgoogle?.message}</p>
+          ) : (
+            ""
+          )}
 
           <label className="flex justify-between">
             <div className="flex">
