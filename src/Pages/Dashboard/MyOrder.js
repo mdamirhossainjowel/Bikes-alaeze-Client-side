@@ -18,6 +18,7 @@ const MyOrder = () => {
         if (res?.status === 401 || res?.status === 403) {
           signOut(auth);
         }
+        return res.json()
       })
       .then((result) => setPurchages(result));
   }, [user]);
@@ -36,12 +37,14 @@ const MyOrder = () => {
         </thead>
         <tbody>
           {purchages?.map((purchage, index) => (
-            <tr>
+      
+            <tr key={index}>
               <th>{index + 1}</th>
               <td>{purchage.Name}</td>
               <td>{purchage.Product}</td>
               <td>{purchage.Quantity}</td>
               <td>{purchage.Price}</td>
+              <td><div><button className="btn btn-xs">Pay</button> <button className="btn btn-xs">Delete</button></div></td>
             </tr>
           ))}
         </tbody>
