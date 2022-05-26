@@ -11,7 +11,11 @@ import Loading from "../Shared/Loading";
 import useToken from "../../hook/useToken";
 
 const Registration = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [updateProfile] = useUpdateProfile(auth);
   const navigate = useNavigate();
   const [
