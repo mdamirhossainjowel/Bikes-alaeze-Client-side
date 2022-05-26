@@ -6,6 +6,11 @@ import { signOut } from 'firebase/auth';
 
 const Header = () => {
   const [user] = useAuthState(auth);
+
+  const handleSignout=()=>{
+    signOut(auth);
+    localStorage.removeItem("accesstoken");
+  }
     return (
         <div className="navbar justify-between bg-base-100 sticky top-0 z-50">
   <div className="navbar-start">
@@ -31,7 +36,7 @@ const Header = () => {
     <li><Link to='/products'>Products</Link></li>
     <li><Link to='/dashboard'>Dashboard</Link></li>
     {
-          !user ? <li><Link to='/login'>Login</Link></li> : <li><button onClick={()=>signOut(auth)}>Logout</button></li>
+          !user ? <li><Link to='/login'>Login</Link></li> : <li><button onClick={handleSignout}>Logout</button></li>
         }
     </ul>
   </div>
