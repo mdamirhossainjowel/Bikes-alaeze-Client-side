@@ -10,9 +10,9 @@ import MyOrder from "./Pages/Dashboard/MyOrder";
 import MyReview from "./Pages/Dashboard/MyReview";
 import MyProfile from "./Pages/Dashboard/MyProfile";
 import PagenotFound from "./Pages/Shared/PagenotFound";
-import Login from "./Pages/Login_Registration/Login";
-import Registration from "./Pages/Login_Registration/Registration";
-import RequireAuth from "./Pages/Login_Registration/RequireAuth";
+import Login from "./Pages/Login&Registration/Login";
+import Registration from "./Pages/Login&Registration/Registration";
+import RequireAuth from "./Pages/Login&Registration/RequireAuth";
 
 function App() {
   return (
