@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/Homepage/Home";
-
+import Login from "./Pages/Login&Registration/Login";
 import Purchase from "./Pages/Product Purchase/Purchase";
 import Header from "./Pages/Shared/Header";
 import Footer from "./Pages/Shared/Footer";
@@ -10,11 +10,19 @@ import MyOrder from "./Pages/Dashboard/MyOrder";
 import MyReview from "./Pages/Dashboard/MyReview";
 import MyProfile from "./Pages/Dashboard/MyProfile";
 import PagenotFound from "./Pages/Shared/PagenotFound";
-import Login from "./Pages/Login&Registration/Login";
 import Registration from "./Pages/Login&Registration/Registration";
 import RequireAuth from "./Pages/Login&Registration/RequireAuth";
+import Addproduct from "./Pages/Dashboard/Addproduct";
+import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
+import ManageAllOrder from "./Pages/Dashboard/ManageAllOrder";
+import ManageProduct from "./Pages/Dashboard/ManageProduct";
+import useAdmin from "./hook/useAdmin";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "./firebase.init";
 
 function App() {
+  const [user] = useAuthState(auth);
+  const [admin] = useAdmin(user);
   return (
     <div className="">
       <Header></Header>
@@ -42,30 +50,30 @@ function App() {
             </RequireAuth>
           }
         >
-          <Route
-            index
-            element={
-              <RequireAuth>
-                <MyOrder></MyOrder>
-              </RequireAuth>
-            }
-          ></Route>
-          <Route
-            path="myreview"
-            element={
-              <RequireAuth>
-                <MyReview></MyReview>
-              </RequireAuth>
-            }
-          ></Route>
-          <Route
-            path="myprofile"
-            element={
-              <RequireAuth>
-                <MyProfile></MyProfile>
-              </RequireAuth>
-            }
-          ></Route>
+          {!admin ? (
+            <Route index element={<MyOrder></MyOrder>}></Route>
+          ) : (
+            <Route index element={<ManageAllOrder></ManageAllOrder>}></Route>
+          )}
+          {!admin && (
+            <Route path="myreview" element={<MyReview></MyReview>}></Route>
+          )}
+          <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
+          {admin && (
+            <Route
+              path="addproduct"
+              element={<Addproduct></Addproduct>}
+            ></Route>
+          )}
+          {admin && (
+            <Route path="makeadmin" element={<MakeAdmin></MakeAdmin>}></Route>
+          )}
+          {admin && (
+            <Route
+              path="manageproducts"
+              element={<ManageProduct></ManageProduct>}
+            ></Route>
+          )}
         </Route>
         <Route path="*" element={<PagenotFound></PagenotFound>}></Route>
       </Routes>
