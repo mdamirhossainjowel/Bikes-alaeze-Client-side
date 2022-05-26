@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
@@ -9,7 +8,8 @@ const Purchase = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors},
+    formState: { errors, isValid },
+    getValues,
     reset,
   } = useForm({
     mode: "onChange",
@@ -17,15 +17,15 @@ const Purchase = () => {
   let { id } = useParams();
   const [product, setProduct] = useState([]);
   const [user] = useAuthState(auth);
+  console.log(user);
   useEffect(() => {
     fetch(`http://localhost:5000/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, [id]);
   const onSubmit = async (data) => {
-    data.Product=product.name;
-    data.Price = data.Quantity * product.price;
-    
+    data.Price = parseFloat(getValues("Quantity")) * parseFloat(product.price);
+    data.Quantity = parseFloat(getValues("Quantity"));
     fetch(`http://localhost:5000/purchage`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -35,6 +35,7 @@ const Purchase = () => {
     })
       .then((res) => res.json())
       .then((result) => console.log(result));
+    console.log(data);
     reset();
   };
   return (
@@ -68,10 +69,12 @@ const Purchase = () => {
           {errors.Address?.type === "required" && "Address is required"}
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
-            placeholder="Phone Number"
-            {...register("Phone", { required: true })}
+            value={product.name}
+            readOnly
+            placeholder="Product Name"
+            {...register("Product", { required: true })}
           />
-          {errors.Name?.type === "required" && "Phone Number is required"}
+          {errors.Name?.type === "required" && "Product Name is required"}
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
             placeholder="Quantity"
@@ -86,18 +89,20 @@ const Purchase = () => {
             : "" || errors.Quantity?.type === "max"
             ? `Stock amount ${product.available_quantity}`
             : ""}
-          {/* <input
+          <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
+            value={
+              parseFloat(getValues("Quantity")) * parseFloat(product.price)
+            }
             placeholder="Price"
-            value={data.Quantity*product.price}
             readOnly
             type="number"
             {...register("Price")}
-          /> */}
+          />
 
           <input
             className="btn btn-primary w-full max-w-lg"
-            disabled={data.Quantity<product.minimum_quantity }
+            disabled={!isValid}
             type="submit"
           />
         </form>
