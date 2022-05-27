@@ -19,6 +19,7 @@ import ManageProduct from "./Pages/Dashboard/ManageProduct";
 import useAdmin from "./hook/useAdmin";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./firebase.init";
+import Updateproducts from "./Pages/Dashboard/Updateproducts";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -75,6 +76,12 @@ function App() {
             ></Route>
           )}
         </Route>
+        {admin && (
+          <Route
+            path="/updateproducts"
+            element={<Updateproducts></Updateproducts>}
+          ></Route>
+        )}
         <Route path="*" element={<PagenotFound></PagenotFound>}></Route>
       </Routes>
 

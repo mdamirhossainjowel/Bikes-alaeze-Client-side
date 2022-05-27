@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useState } from "react";
 
 const MakeAdmin = () => {
-    const [users, setUsers] = useState([]);
-    useEffect(()=>{
-        fetch('http://localhost:5000/users',{
-            method:'GET',
-            headers: {
-            authorization: `Bearer ${localStorage.getItem("accesstoken")}`,
-          },
-        }).then(res=>res.json())
-    .then(data=>setUsers(data))
-    },[]);
- 
- const makeAdmin=(email)=>{
-     console.log(email);
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/users", {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accesstoken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
+  }, []);
+
+  const makeAdmin = (email) => {
+    console.log(email);
     fetch(`http://localhost:5000/users/admin/${email}`, {
-        method: "PUT",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accesstoken")}`,
-        },
-      })
-        .then((res) =>  res.json())
-        .then((result) => console.log(result));
- }
+      method: "PUT",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accesstoken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result));
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -40,13 +40,22 @@ const MakeAdmin = () => {
             <tr key={index}>
               <th>{index + 1}</th>
               <td>{user.email}</td>
-              <td>{user?.role!=='admin' && <button onClick={()=>makeAdmin(user.email)} className="btn btn-xs">Make Admin</button> }</td>
+              <td>
+                {user?.role !== "admin" && (
+                  <button
+                    onClick={() => makeAdmin(user.email)}
+                    className="btn btn-xs"
+                  >
+                    Make Admin
+                  </button>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
-}
+};
 
-export default MakeAdmin
+export default MakeAdmin;

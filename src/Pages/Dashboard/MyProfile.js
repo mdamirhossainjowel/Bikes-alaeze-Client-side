@@ -30,15 +30,15 @@ const MyProfile = () => {
         <h2 className="card-title">Name: {user?.displayName}</h2>
       </div>
       <div className="card-actions justify-center mb-5">
-        <label for="my-modal-5" className="btn btn-primary">
+        <label htmlFor="my-modal-5" className="btn btn-primary">
           Update Profile
         </label>
       </div>
-      {/* <label  class="btn modal-button">open modal</label> */}
+      {/* <label  className="btn modal-button">open modal</label> */}
       <div>
-        <input type="checkbox" id="my-modal-5" class="modal-toggle" />
-        <div class="modal lg:w-1/2 mx-auto">
-          <div class="modal-box w-11/12 max-w-5xl">
+        <input type="checkbox" id="my-modal-5" className="modal-toggle" />
+        <div className="modal lg:w-1/2 mx-auto">
+          <div className="modal-box w-11/12 max-w-5xl">
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
                 className="input input-bordered input-accent w-full max-w-lg mb-3"
@@ -53,9 +53,9 @@ const MyProfile = () => {
               />
               {errors.photoURL?.type === "required" && "Image URl is required"}{" "}
               <br />
-              <div class="modal-action justify-center">
+              <div className="modal-action justify-center">
                 <label
-                  for="my-modal-5"
+                  htmlFor="my-modal-5"
                   className=" btn btn-primary"
                   disabled={!isValid}
                   type="submit"
