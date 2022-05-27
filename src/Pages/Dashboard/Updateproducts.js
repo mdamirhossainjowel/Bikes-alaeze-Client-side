@@ -8,7 +8,7 @@ const Updateproducts = () => {
     mode: "onChange",
   });
   const onSubmit = async (data) => {
-    fetch(`http://localhost:5000/products/${id}`, {
+    fetch(`https://bikes-alaeze.herokuapp.com/products/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {

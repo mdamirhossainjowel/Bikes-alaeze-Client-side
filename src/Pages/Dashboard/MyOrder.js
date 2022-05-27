@@ -8,7 +8,7 @@ const MyOrder = () => {
   const [user] = useAuthState(auth);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/mypurchage?Email=${user.email}`, {
+    fetch(`https://bikes-alaeze.herokuapp.com/mypurchage?Email=${user.email}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accesstoken")}`,
@@ -18,7 +18,7 @@ const MyOrder = () => {
         if (res?.status === 401 || res?.status === 403) {
           signOut(auth);
         }
-        return res.json()
+        return res.json();
       })
       .then((result) => setPurchages(result));
   }, [user]);
@@ -37,14 +37,18 @@ const MyOrder = () => {
         </thead>
         <tbody>
           {purchages?.map((purchage, index) => (
-      
             <tr key={index}>
               <th>{index + 1}</th>
               <td>{purchage.Name}</td>
               <td>{purchage.Product}</td>
               <td>{purchage.Quantity}</td>
               <td>{purchage.Price}</td>
-              <td><div><button className="btn btn-xs">Pay</button> <button className="btn btn-xs">Delete</button></div></td>
+              <td>
+                <div>
+                  <button className="btn btn-xs">Pay</button>{" "}
+                  <button className="btn btn-xs">Delete</button>
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>
