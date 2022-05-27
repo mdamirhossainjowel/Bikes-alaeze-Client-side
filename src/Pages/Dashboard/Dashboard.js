@@ -29,7 +29,7 @@ const Dashboard = () => {
           )}
           {!admin && (
             <li>
-              <Link to="myreview">My Review</Link>
+              <Link to="myreview">Add Review</Link>
             </li>
           )}
           {admin && (
