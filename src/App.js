@@ -75,13 +75,14 @@ function App() {
               element={<ManageProduct></ManageProduct>}
             ></Route>
           )}
+          {admin && (
+            <Route
+              path="manageproducts/updateproducts/:id"
+              element={<Updateproducts></Updateproducts>}
+            ></Route>
+          )}
         </Route>
-        {admin && (
-          <Route
-            path="/updateproducts"
-            element={<Updateproducts></Updateproducts>}
-          ></Route>
-        )}
+
         <Route path="*" element={<PagenotFound></PagenotFound>}></Route>
       </Routes>
 

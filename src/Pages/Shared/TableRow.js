@@ -1,14 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import useId from "../../hook/useId";
 
 const TableRow = (props) => {
   const { product } = props;
   const navigate = useNavigate();
-  const [setProductid] = useId(product._id);
+
   const handleUpdate = (id) => {
-    setProductid(id);
-    navigate("/updateproducts");
+    navigate(`updateproducts/${id}`);
   };
   return (
     <tr>

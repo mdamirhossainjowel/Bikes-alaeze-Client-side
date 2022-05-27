@@ -1,11 +1,23 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 
 const Updateproducts = () => {
+  let { id } = useParams();
   const { register, handleSubmit } = useForm({
     mode: "onChange",
   });
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    fetch(`http://localhost:5000/products/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result));
+  };
 
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl mx-6 lg:w-2/3 lg:mx-auto my-14">
