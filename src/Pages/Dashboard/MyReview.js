@@ -13,10 +13,11 @@ const MyReview = () => {
     mode: "onChange",
   });
   const [user] = useAuthState(auth);
-  console.log(user?.photoURL);
+  console.log(user);
   const onSubmit = async (data) => {
     data.name = user?.displayName;
     data.image = user?.photoURL;
+    data.rating = parseInt(data.rating);
     fetch(`http://localhost:5000/reviews`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -37,22 +38,27 @@ const MyReview = () => {
           <textarea
             className="input input-bordered input-accent w-full max-w-lg h-24 mb-3"
             placeholder="Review"
-            {...register("review", { required: true })}
-          />
-          {errors.review?.type === "required" && "review is required"}
+            {...register("reviews", { required: true })}
+          />{" "}
+          <br />
+          {errors.reviews?.type === "required" && "review is required"} <br />
           <textarea
             className="input input-bordered input-accent w-full max-w-lg h-24 mb-3"
             placeholder="Address"
-            {...register("address", { required: true })}
-          />
-          {errors.address?.type === "required" && "Address is required"}
+            {...register("Address", { required: true })}
+          />{" "}
+          <br />
+          {errors.Address?.type === "required" && "Address is required"} <br />
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
             placeholder="Ratings in (1-5)"
-            {...register("rating", { required: true })}
+            type="number"
+            {...register("rating", {
+              min: 1,
+              max: 5,
+            })}
           />
           {errors.rating?.type === "required" && "rating is required"}
-
           <input
             className="btn btn-primary w-full max-w-lg"
             disabled={!isValid}
