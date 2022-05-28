@@ -5,7 +5,7 @@ const Reviews = () => {
   const [productreviews, setProductReviews] = useState([]);
 
   useEffect(() => {
-    fetch("https://bikes-alaeze.herokuapp.com/reviews")
+    fetch("http://localhost:5000/reviews")
       .then((res) => res.json())
       .then((data) => setProductReviews(data));
   }, []);

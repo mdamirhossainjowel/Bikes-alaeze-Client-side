@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const MakeAdmin = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch("https://bikes-alaeze.herokuapp.com/users", {
+    fetch("http://localhost:5000/users", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accesstoken")}`,
@@ -15,7 +15,7 @@ const MakeAdmin = () => {
 
   const makeAdmin = (email) => {
     console.log(email);
-    fetch(`https://bikes-alaeze.herokuapp.com/users/admin/${email}`, {
+    fetch(`http://localhost:5000/users/admin/${email}`, {
       method: "PUT",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accesstoken")}`,

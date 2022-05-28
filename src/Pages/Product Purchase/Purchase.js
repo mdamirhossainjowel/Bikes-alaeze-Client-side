@@ -17,15 +17,17 @@ const Purchase = () => {
   const [product, setProduct] = useState([]);
   const [user] = useAuthState(auth);
   useEffect(() => {
-    fetch(`https://bikes-alaeze.herokuapp.com/products/${id}`)
+    fetch(`http://localhost:5000/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, [id]);
+  console.log(product);
   const onSubmit = async (data) => {
+    data.ProductId = product._id;
     data.Product = product.name;
     data.Price = data.Quantity * product.price;
     if (data.Quantity) {
-      fetch(`https://bikes-alaeze.herokuapp.com/purchage`, {
+      fetch(`http://localhost:5000/purchage`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

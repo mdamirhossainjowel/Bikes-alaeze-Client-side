@@ -20,6 +20,7 @@ import useAdmin from "./hook/useAdmin";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./firebase.init";
 import Updateproducts from "./Pages/Dashboard/Updateproducts";
+import Payment from "./Pages/Dashboard/Payment";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -81,6 +82,7 @@ function App() {
               element={<Updateproducts></Updateproducts>}
             ></Route>
           )}
+          <Route path="payment/:id" element={<Payment></Payment>}></Route>
         </Route>
 
         <Route path="*" element={<PagenotFound></PagenotFound>}></Route>

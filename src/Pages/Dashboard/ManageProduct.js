@@ -4,7 +4,7 @@ import TableRow from "../Shared/TableRow";
 const ManageProduct = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch(`https://bikes-alaeze.herokuapp.com/products`)
+    fetch(`http://localhost:5000/products`)
       .then((res) => res.json())
       .then((result) => setProducts(result));
   }, []);
