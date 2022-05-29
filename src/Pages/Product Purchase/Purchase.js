@@ -17,7 +17,7 @@ const Purchase = () => {
   const [product, setProduct] = useState([]);
   const [user] = useAuthState(auth);
   useEffect(() => {
-    fetch(`http://localhost:5000/products/${id}`)
+    fetch(`https://bikes-alaeze.herokuapp.com/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, [id]);
@@ -27,7 +27,7 @@ const Purchase = () => {
     data.Product = product.name;
     data.Price = data.Quantity * product.price;
     if (data.Quantity) {
-      fetch(`http://localhost:5000/purchage`, {
+      fetch(`https://bikes-alaeze.herokuapp.com/purchage`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

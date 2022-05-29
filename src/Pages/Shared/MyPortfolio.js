@@ -5,29 +5,31 @@ import code from "../../Assets/code.png";
 import Explore from "../../Assets/Explore.png";
 import kts from "../../Assets/Kts.png";
 import bikes from "../../Assets/bikes.png";
+import portfolio from "../../Assets/portfolio.png";
 
 const MyPortfolio = () => {
   return (
     <section>
       <section>
         <div class="hero min-h-screen bg-base-100 lg:w-2/3 mx-auto">
-          <div class="hero-content flex-col lg:flex-row-reverse">
+          <div class="hero-content flex-col lg:flex-row">
             <img
               className="w-10"
-              src="https://api.lorem.space/image/movie?w=260&h=400"
+              src={portfolio}
               class="max-w-sm rounded-lg shadow-2xl"
               alt="profile"
             />
             <div>
-              <h1 class="text-3xl font-bold">
+              <h1 class="text-3xl text-right font-bold mt-3">
                 Hi i'm <span className="text-5xl">Md. Amir Hossain Jowel</span>
               </h1>
-              <p class="py-2 text-xl">Junior Web Developer.</p>
-              <p class="py-2 text-xl">Email: mdamirhossainjowel@gmail.com.</p>
-              <p class="py-2 text-xl">
+              <p class="py-2 text-xl text-right">Junior Web Developer.</p>
+              <p class="py-2 text-xl text-right">
+                Email: mdamirhossainjowel@gmail.com.
+              </p>
+              <p class="py-2 text-xl text-right">
                 Educational background: B.Sc. in Computer Science & Engineering
               </p>
-              <button class="btn btn-secondary">Contact me</button>
             </div>
           </div>
         </div>

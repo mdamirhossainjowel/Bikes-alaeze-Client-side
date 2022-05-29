@@ -11,7 +11,7 @@ const Addproduct = () => {
     mode: "onChange",
   });
   const onSubmit = async (data) => {
-    fetch(`http://localhost:5000/products`, {
+    fetch(`https://bikes-alaeze.herokuapp.com/products`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

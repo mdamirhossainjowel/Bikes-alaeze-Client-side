@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { signOut } from "firebase/auth";
+import bikeslogo from "../../Assets/bikelogo.png";
 
 const Header = () => {
   const [user] = useAuthState(auth);
@@ -54,7 +55,7 @@ const Header = () => {
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost normal-case text-xl">
-          Bikes Alaeze
+          Bikes Alaeze <img className="ml-2 w-10" src={bikeslogo} alt="" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -81,6 +82,30 @@ const Header = () => {
             </li>
           )}
         </ul>
+      </div>
+      <div className="navbar-end lg:hidden">
+        <div className="dropdown">
+          <label
+            tabIndex="1"
+            htmlFor="my-drawer-2"
+            className="btn btn-ghost lg:hidden"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </label>
+        </div>
       </div>
     </div>
   );

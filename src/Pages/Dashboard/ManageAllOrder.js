@@ -7,7 +7,7 @@ const ManageAllOrder = () => {
   const [shippedID, setshippedID] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/purchage`, {
+    fetch(`https://bikes-alaeze.herokuapp.com/purchage`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -15,7 +15,7 @@ const ManageAllOrder = () => {
   }, []);
 
   const HandleDeliverd = (product, index) => {
-    fetch(`http://localhost:5000/products/${product.ProductId}`, {
+    fetch(`https://bikes-alaeze.herokuapp.com/products/${product.ProductId}`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -30,7 +30,7 @@ const ManageAllOrder = () => {
     };
     console.log(dataProduct);
     console.log(product._id);
-    fetch(`http://localhost:5000/products/${product.ProductId}`, {
+    fetch(`https://bikes-alaeze.herokuapp.com/products/${product.ProductId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const ManageAllOrder = () => {
       shippedPord: product._id,
       shippedvalu: true,
     };
-    fetch(`http://localhost:5000/shipped`, {
+    fetch(`https://bikes-alaeze.herokuapp.com/shipped`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const ManageAllOrder = () => {
       .then((res) => res.json())
       .then((result) => console.log(result));
 
-    fetch(`http://localhost:5000/shipped`)
+    fetch(`https://bikes-alaeze.herokuapp.com/shipped`)
       .then((res) => res.json())
       .then((result) => setshippment(result));
     console.log(shippment);

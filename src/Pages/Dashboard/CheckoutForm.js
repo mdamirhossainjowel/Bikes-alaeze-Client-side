@@ -14,7 +14,7 @@ const CheckoutForm = (props) => {
   const [clientSecret, setclientSecret] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://bikes-alaeze.herokuapp.com/create-payment-intent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -74,7 +74,7 @@ const CheckoutForm = (props) => {
         order: _id,
         transactionId: paymentIntent.id,
       };
-      fetch(`http://localhost:5000/purchage/${_id}`, {
+      fetch(`https://bikes-alaeze.herokuapp.com/purchage/${_id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

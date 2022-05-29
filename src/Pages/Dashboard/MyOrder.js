@@ -9,10 +9,10 @@ const MyOrder = () => {
   const [user] = useAuthState(auth);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/mypurchage?Email=${user.email}`, {
+    fetch(`https://bikes-alaeze.herokuapp.com/mypurchage?Email=${user.email}`, {
       method: "GET",
       headers: {
-        "authorization": `Bearer ${localStorage.getItem("accesstoken")}`,
+        authorization: `Bearer ${localStorage.getItem("accesstoken")}`,
       },
     })
       .then((res) => {
@@ -23,13 +23,13 @@ const MyOrder = () => {
       })
       .then((result) => setPurchages(result));
   }, [user]);
-const handleDelete=id=>{
-  fetch(`http://localhost:5000/purchage/${id}`,{
-    method:'DELETE',
-  })
-  .then((res) => res.json())
-  .then((data) => console.log(data));
-}
+  const handleDelete = (id) => {
+    fetch(`https://bikes-alaeze.herokuapp.com/purchage/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -53,10 +53,23 @@ const handleDelete=id=>{
               <td>{purchage.Quantity}</td>
               <td>{purchage.Price}</td>
               <td>
-                {!purchage.paid? <div>
-                  <Link to={`/dashboard/payment/${purchage._id}`}><button className="btn btn-xs mr-2">Pay</button></Link> 
-                  <button className="btn btn-xs" onClick={()=>handleDelete(purchage._id)}>Delete</button>
-                </div> : <span className="bg-success rounded-full px-2 py-1">Paid</span>}
+                {!purchage.paid ? (
+                  <div>
+                    <Link to={`/dashboard/payment/${purchage._id}`}>
+                      <button className="btn btn-xs mr-2">Pay</button>
+                    </Link>
+                    <button
+                      className="btn btn-xs"
+                      onClick={() => handleDelete(purchage._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ) : (
+                  <span className="bg-success rounded-full px-2 py-1">
+                    Paid
+                  </span>
+                )}
               </td>
             </tr>
           ))}

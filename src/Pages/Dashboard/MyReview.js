@@ -18,7 +18,7 @@ const MyReview = () => {
     data.name = user?.displayName;
     data.image = user?.photoURL;
     data.rating = parseInt(data.rating);
-    fetch(`http://localhost:5000/reviews`, {
+    fetch(`https://bikes-alaeze.herokuapp.com/reviews`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
