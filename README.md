@@ -1,6 +1,6 @@
 # Bikes Alaez
 
-Live Site [KTS Trade](https://bikes-alaeze.web.app/).
+Live Site [Bikes Alaeze](https://bikes-alaeze.web.app/).
 
 ## Project Description
 
