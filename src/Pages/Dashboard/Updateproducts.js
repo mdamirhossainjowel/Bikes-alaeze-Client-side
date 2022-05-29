@@ -27,21 +27,18 @@ const Updateproducts = () => {
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
             placeholder="Update Avaliable Quantity"
-            type="number"
             {...register("available_quantity")}
           />
           <br />
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
             placeholder="Update Minimum Quantity"
-            type="number"
             {...register("minimum_quantity")}
           />
           <br />
           <input
             className="input input-bordered input-accent w-full max-w-lg mb-3"
             placeholder="Update Price"
-            type="number"
             {...register("price")}
           />
           <br />

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/Homepage/Home";
-import Login from "./Pages/Login&Registration/Login";
+import Login from "./Pages/Login_Registration/Login";
 import Purchase from "./Pages/Product Purchase/Purchase";
 import Header from "./Pages/Shared/Header";
 import Footer from "./Pages/Shared/Footer";
@@ -10,8 +10,8 @@ import MyOrder from "./Pages/Dashboard/MyOrder";
 import MyReview from "./Pages/Dashboard/MyReview";
 import MyProfile from "./Pages/Dashboard/MyProfile";
 import PagenotFound from "./Pages/Shared/PagenotFound";
-import Registration from "./Pages/Login&Registration/Registration";
-import RequireAuth from "./Pages/Login&Registration/RequireAuth";
+import Registration from "./Pages/Login_Registration/Registration";
+import RequireAuth from "./Pages/Login_Registration/RequireAuth";
 import Addproduct from "./Pages/Dashboard/Addproduct";
 import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
 import ManageAllOrder from "./Pages/Dashboard/ManageAllOrder";
@@ -21,6 +21,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./firebase.init";
 import Updateproducts from "./Pages/Dashboard/Updateproducts";
 import Payment from "./Pages/Dashboard/Payment";
+import MyPortfolio from "./Pages/Shared/MyPortfolio";
+import Blog from "./Pages/Shared/Blog";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -85,6 +87,8 @@ function App() {
           <Route path="payment/:id" element={<Payment></Payment>}></Route>
         </Route>
 
+        <Route path="/portfolio" element={<MyPortfolio></MyPortfolio>}></Route>
+        <Route path="/blog" element={<Blog></Blog>}></Route>
         <Route path="*" element={<PagenotFound></PagenotFound>}></Route>
       </Routes>
 

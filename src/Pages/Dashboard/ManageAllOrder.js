@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 
 const ManageAllOrder = () => {
   const [purchages, setPurchages] = useState([]);
-  // const [available, setAvailable] = useState([]);
+  const [shippment, setshippment] = useState({});
+  const [available, setAvailable] = useState({});
+  const [shippedID, setshippedID] = useState("");
 
   useEffect(() => {
     fetch(`http://localhost:5000/purchage`, {
@@ -12,35 +14,58 @@ const ManageAllOrder = () => {
       .then((result) => setPurchages(result));
   }, []);
 
-  // const HandleDeliverd = () => {
-  // fetch(`http://localhost:5000/products/${product.ProductId}`, {
-  //   method: "GET",
-  // })
-  //   .then((res) => res.json())
-  //   .then((result) => {
-  //     setAvailable(result);
-  //     console.log(result);
-  //   });
-  // const minimumquantity = available.minimum_quantity;
-  // const pricepro = available.price;
-  // const availablequantity = available.available_quantity - product.Quantity;
-  // const data = {
-  //   available_quantity: availablequantity,
-  //   minimum_quantity: minimumquantity,
-  //   price: pricepro,
-  // };
-  // console.log(data);
-  // console.log(available.minimum_quantity, available.price, product.Quantity);
-  // fetch(`http://localhost:5000/products/${product.ProductId}`, {
-  //   method: "PUT",
-  //   body: JSON.stringify(data),
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // })
-  //   .then((res) => res.json())
-  //   .then((result) => console.log(result));
-  // };
+  const HandleDeliverd = (product, index) => {
+    fetch(`http://localhost:5000/products/${product.ProductId}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => setAvailable(result));
+
+    const dataProduct = {
+      available_quantity: (
+        available.available_quantity - product.Quantity
+      ).toString(),
+      minimum_quantity: available.minimum_quantity,
+      price: available.price,
+    };
+    console.log(dataProduct);
+    console.log(product._id);
+    fetch(`http://localhost:5000/products/${product.ProductId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataProduct),
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result));
+
+    const shippedprod = {
+      shippedPord: product._id,
+      shippedvalu: true,
+    };
+    fetch(`http://localhost:5000/shipped`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(shippedprod),
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result));
+
+    fetch(`http://localhost:5000/shipped`)
+      .then((res) => res.json())
+      .then((result) => setshippment(result));
+    console.log(shippment);
+    const shippedValue = shippment.find(
+      (ship) => ship.shippedPord === product._id
+    );
+    const isshipped = shippedValue.shippedPord;
+    console.log(isshipped);
+    setshippedID(isshipped);
+  };
+
   return (
     <div className="overflow-x-auto">
       <h1 className="text-accent text-3xl text-center font-bold">All Orders</h1>
@@ -63,15 +88,28 @@ const ManageAllOrder = () => {
               <td>{purchage.Product}</td>
               <td>{purchage.Quantity}</td>
               <td>{purchage.Price}</td>
-              <td>
-                {!purchage.paid ? (
+              {shippedID === purchage._id ? (
+                <td>
                   <span className="bg-warning rounded-full px-2 py-1">
-                    Unpaid
+                    Shipped
                   </span>
-                ) : (
-                  <input className="btn btn-xs" type="submit" value="Pending" />
-                )}
-              </td>
+                </td>
+              ) : (
+                <td>
+                  {!purchage.paid ? (
+                    <span className="bg-warning rounded-full px-2 py-1">
+                      Unpaid
+                    </span>
+                  ) : (
+                    <input
+                      className="btn btn-xs"
+                      onClick={() => HandleDeliverd(purchage, index)}
+                      type="submit"
+                      value="Pending"
+                    />
+                  )}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
