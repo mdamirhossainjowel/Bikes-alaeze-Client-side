@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const ManageAllOrder = () => {
   const [purchages, setPurchages] = useState([]);
@@ -64,6 +65,7 @@ const ManageAllOrder = () => {
     const isshipped = shippedValue.shippedPord;
     console.log(isshipped);
     setshippedID(isshipped);
+    toast.success("Product are Deliverd");
   };
 
   return (

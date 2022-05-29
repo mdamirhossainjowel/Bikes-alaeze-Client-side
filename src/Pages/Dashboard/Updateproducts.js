@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Updateproducts = () => {
   let { id } = useParams();
@@ -17,6 +18,7 @@ const Updateproducts = () => {
     })
       .then((res) => res.json())
       .then((result) => console.log(result));
+    toast.success("Product updated successfully");
   };
 
   return (

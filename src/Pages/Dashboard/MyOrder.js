@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import auth from "../../firebase.init";
+import { toast } from "react-toastify";
 
 const MyOrder = () => {
   const [purchages, setPurchages] = useState([]);
@@ -29,6 +30,7 @@ const MyOrder = () => {
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
+    toast.success("Product deleted");
   };
 
   return (

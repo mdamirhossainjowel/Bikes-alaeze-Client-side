@@ -1,4 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 
 const CheckoutForm = (props) => {
@@ -85,6 +86,7 @@ const CheckoutForm = (props) => {
         .then((res) => res.json())
         .then((data) => console.log(data));
     }
+    toast.success("Successfully Paid");
   };
   return (
     <form onSubmit={handleSubmit}>

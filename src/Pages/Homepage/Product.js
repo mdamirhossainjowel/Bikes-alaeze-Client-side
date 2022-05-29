@@ -30,9 +30,9 @@ const Product = (props) => {
         <div className="card-actions">
           <button
             onClick={() => navigateToProductDetail(_id)}
-            className="btn btn-primary"
+            className="btn btn-accent"
           >
-            Buy Now
+            PURCHASE
           </button>
         </div>
       </div>

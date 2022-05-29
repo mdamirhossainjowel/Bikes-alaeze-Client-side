@@ -91,7 +91,7 @@ const Registration = () => {
             ""
           )}
 
-          <input className="btn btn-secondary w-full" type="submit" />
+          <input className="btn btn-accent w-full" type="submit" />
         </form>
         <Link to="/login" className="underline text-accent">
           Already Have Account?Please Login
@@ -101,7 +101,7 @@ const Registration = () => {
         <div className="card-actions justify-center">
           <button
             onClick={() => signInWithGoogle()}
-            className="btn btn-primary w-full max-w-lg "
+            className="btn btn-accent w-full max-w-lg "
           >
             Login With Google
           </button>

@@ -23,13 +23,15 @@ import Updateproducts from "./Pages/Dashboard/Updateproducts";
 import Payment from "./Pages/Dashboard/Payment";
 import MyPortfolio from "./Pages/Shared/MyPortfolio";
 import Blog from "./Pages/Shared/Blog";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [user] = useAuthState(auth);
   const [admin] = useAdmin(user);
   return (
     <div className="">
       <Header></Header>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/home" element={<Home></Home>}></Route>

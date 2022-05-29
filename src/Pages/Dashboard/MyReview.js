@@ -2,6 +2,7 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import auth from "../../firebase.init";
+import { toast } from "react-toastify";
 
 const MyReview = () => {
   const {
@@ -28,6 +29,7 @@ const MyReview = () => {
       .then((res) => res.json())
       .then((result) => console.log(result));
     reset();
+    toast.success("Review Added");
   };
 
   return (

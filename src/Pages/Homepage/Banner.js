@@ -21,7 +21,7 @@ const Banner = () => {
             high-quality bikes from the manufacturer, cut out the middlemen, and
             pass on the savings to you.
           </p>
-          <button className="btn btn-primary">Get Started</button>
+          <button className="btn btn-accent">Get Started</button>
         </div>
       </div>
     </div>

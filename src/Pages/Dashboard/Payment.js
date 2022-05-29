@@ -32,19 +32,19 @@ const Payment = () => {
             {paymentOrder.Name}
           </h1>
           <p className="py-6 text-xl">
-            Your Order{" "}
+            Your Order
             <span className="text-2xl text-amber-800">
               {paymentOrder.Product}
-            </span>{" "}
-            of{" "}
+            </span>
+            of
             <span className="text-2xl text-amber-800">
               {paymentOrder.Quantity}
-            </span>{" "}
-            Quantity. You Have to pay{" "}
+            </span>
+            Quantity. You Have to pay
             <span className="text-2xl text-amber-800">
               {paymentOrder.Price}
-            </span>{" "}
-            Bdt.{" "}
+            </span>
+            USD.
           </p>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">

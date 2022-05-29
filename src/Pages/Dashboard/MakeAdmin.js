@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const MakeAdmin = () => {
   const [users, setUsers] = useState([]);
@@ -23,6 +24,7 @@ const MakeAdmin = () => {
     })
       .then((res) => res.json())
       .then((result) => console.log(result));
+    toast.success("Product added successfully");
   };
 
   return (

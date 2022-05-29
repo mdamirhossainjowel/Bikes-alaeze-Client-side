@@ -82,7 +82,7 @@ const Login = () => {
           </label>
 
           <input
-            className="btn btn-secondary w-full"
+            className="btn btn-accent w-full"
             type="submit"
             value="Login"
           />
@@ -95,7 +95,7 @@ const Login = () => {
         <div className="card-actions justify-center">
           <button
             onClick={() => signInWithGoogle()}
-            className="btn btn-primary w-full max-w-lg "
+            className="btn btn-accent w-full max-w-lg "
           >
             Login With Google
           </button>

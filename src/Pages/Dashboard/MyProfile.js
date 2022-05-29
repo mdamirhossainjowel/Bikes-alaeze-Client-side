@@ -30,7 +30,7 @@ const MyProfile = () => {
         <h2 className="card-title">Name: {user?.displayName}</h2>
       </div>
       <div className="card-actions justify-center mb-5">
-        <label htmlFor="my-modal-5" className="btn btn-primary">
+        <label htmlFor="my-modal-5" className="btn btn-accent">
           Update Profile
         </label>
       </div>
@@ -56,7 +56,7 @@ const MyProfile = () => {
               <div className="modal-action justify-center">
                 <label
                   htmlFor="my-modal-5"
-                  className=" btn btn-primary"
+                  className=" btn btn-accent"
                   disabled={!isValid}
                   type="submit"
                 >

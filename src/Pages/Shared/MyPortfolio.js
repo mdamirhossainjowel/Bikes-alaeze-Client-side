@@ -266,7 +266,7 @@ const MyPortfolio = () => {
                       placeholder="Details"
                     />
                     <input
-                      className="btn btn-primary w-full max-w-lg"
+                      className="btn btn-accent w-full max-w-lg"
                       type="submit"
                       value="Contact"
                     />
