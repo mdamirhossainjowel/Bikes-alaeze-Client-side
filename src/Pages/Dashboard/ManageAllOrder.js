@@ -1,27 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 
 const ManageAllOrder = () => {
-  const [purchages, setPurchages] = useState([]);
-  const [shippment, setshippment] = useState({});
   const [available, setAvailable] = useState({});
-  const [shippedID, setshippedID] = useState("");
 
-  useEffect(() => {
-    fetch(`https://bikes-alaeze.herokuapp.com/purchage`, {
+  const { data: purchages, refetch } = useQuery("purchages", () =>
+    fetch("https://bikes-alaeze.herokuapp.com/purchage", {
       method: "GET",
-    })
-      .then((res) => res.json())
-      .then((result) => setPurchages(result));
-  }, []);
+    }).then((res) => res.json())
+  );
 
-  const HandleDeliverd = (product, index) => {
+  const HandleDeliverd = (product) => {
     fetch(`https://bikes-alaeze.herokuapp.com/products/${product.ProductId}`, {
       method: "GET",
     })
       .then((res) => res.json())
       .then((result) => setAvailable(result));
-
     const dataProduct = {
       available_quantity: (
         available.available_quantity - product.Quantity
@@ -29,8 +24,7 @@ const ManageAllOrder = () => {
       minimum_quantity: available.minimum_quantity,
       price: available.price,
     };
-    console.log(dataProduct);
-    console.log(product._id);
+
     fetch(`https://bikes-alaeze.herokuapp.com/products/${product.ProductId}`, {
       method: "PUT",
       headers: {
@@ -41,33 +35,30 @@ const ManageAllOrder = () => {
       .then((res) => res.json())
       .then((result) => console.log(result));
 
-    const shippedprod = {
-      shippedPord: product._id,
-      shippedvalu: true,
+    const manageorder = {
+      shipped: true,
+      transactionId: product.transactionId,
     };
-    fetch(`https://bikes-alaeze.herokuapp.com/shipped`, {
-      method: "POST",
+    fetch(`https://bikes-alaeze.herokuapp.com/purchage/${product._id}`, {
+      method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accesstoken")}`,
       },
-      body: JSON.stringify(shippedprod),
+      body: JSON.stringify(manageorder),
     })
       .then((res) => res.json())
-      .then((result) => console.log(result));
-
-    fetch(`https://bikes-alaeze.herokuapp.com/shipped`)
-      .then((res) => res.json())
-      .then((result) => setshippment(result));
-    console.log(shippment);
-    const shippedValue = shippment.find(
-      (ship) => ship.shippedPord === product._id
-    );
-    const isshipped = shippedValue.shippedPord;
-    console.log(isshipped);
-    setshippedID(isshipped);
-    toast.success("Product are Deliverd");
+      .then((data) => console.log(data));
   };
-
+  const HandleDelete = (id) => {
+    fetch(`https://bikes-alaeze.herokuapp.com/purchage/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+    toast.success("Product deleted");
+  };
+  refetch();
   return (
     <div className="overflow-x-auto">
       <h1 className="text-accent text-3xl text-center font-bold">All Orders</h1>
@@ -90,7 +81,7 @@ const ManageAllOrder = () => {
               <td>{purchage.Product}</td>
               <td>{purchage.Quantity}</td>
               <td>{purchage.Price}</td>
-              {shippedID === purchage._id ? (
+              {purchage.shipped ? (
                 <td>
                   <span className="bg-warning rounded-full px-2 py-1">
                     Shipped
@@ -99,13 +90,22 @@ const ManageAllOrder = () => {
               ) : (
                 <td>
                   {!purchage.paid ? (
-                    <span className="bg-warning rounded-full px-2 py-1">
-                      Unpaid
-                    </span>
+                    <div>
+                      {" "}
+                      <span className="bg-warning rounded-full px-2 py-1">
+                        Unpaid
+                      </span>
+                      <input
+                        className="btn btn-xs"
+                        onClick={() => HandleDelete(purchage._id)}
+                        type="submit"
+                        value="Delete"
+                      />
+                    </div>
                   ) : (
                     <input
                       className="btn btn-xs"
-                      onClick={() => HandleDeliverd(purchage, index)}
+                      onClick={() => HandleDeliverd(purchage)}
                       type="submit"
                       value="Pending"
                     />

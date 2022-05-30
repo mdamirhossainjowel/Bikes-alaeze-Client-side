@@ -67,10 +67,12 @@ const CheckoutForm = (props) => {
       });
     if (intenerror) {
       setCardError(intenerror.message);
+      toast.error("Payment Cant be successfull");
     } else {
       setCardError("");
       console.log(paymentIntent);
       setcardSuccess("Your Payment is completed.");
+      toast.success("Successfully Paid");
       const payment = {
         order: _id,
         transactionId: paymentIntent.id,
@@ -86,7 +88,6 @@ const CheckoutForm = (props) => {
         .then((res) => res.json())
         .then((data) => console.log(data));
     }
-    toast.success("Successfully Paid");
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -98,8 +99,11 @@ const CheckoutForm = (props) => {
       >
         Pay
       </button>
-      {carderror ? <p className="text-red-500"> {carderror}</p> : ""}
-      {cardSuccess ? <p className="text-green-500"> {cardSuccess}</p> : ""}
+      {carderror ? (
+        <p className="text-red-500"> {carderror}</p>
+      ) : (
+        <p className="text-green-500"> {cardSuccess}</p>
+      )}
     </form>
   );
 };

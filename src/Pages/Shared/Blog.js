@@ -4,10 +4,10 @@ const Blog = () => {
   return (
     <section>
       <section>
-        <div class="hero min-h-screen bg-base-200">
-          <div class="hero-content flex-col lg:flex-row">
-            <div class="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
-              <div class="card-body">
+        <div className="hero min-h-screen bg-base-200">
+          <div className="hero-content flex-col lg:flex-row">
+            <div className="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
+              <div className="card-body">
                 <h1 className="text-3xl text-center text-accent font-semibold">
                   How will you improve the performance of a React Application?
                 </h1>
@@ -23,8 +23,8 @@ const Blog = () => {
                 </p>
               </div>
             </div>
-            <div class="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
-              <div class="card-body">
+            <div className="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
+              <div className="card-body">
                 <h1 className="text-3xl text-center text-accent font-semibold">
                   What are the different ways to manage a state in a React
                   application?
@@ -47,10 +47,10 @@ const Blog = () => {
         </div>
       </section>
       <section>
-        <div class="hero min-h-screen bg-base-200">
-          <div class="hero-content flex-col lg:flex-row">
-            <div class="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
-              <div class="card-body">
+        <div className="hero min-h-screen bg-base-200">
+          <div className="hero-content flex-col lg:flex-row">
+            <div className="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
+              <div className="card-body">
                 <h1 className="text-3xl text-center text-accent font-semibold">
                   How does prototypical inheritance work?
                 </h1>
@@ -64,8 +64,8 @@ const Blog = () => {
                 </p>
               </div>
             </div>
-            <div class="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
-              <div class="card-body">
+            <div className="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
+              <div className="card-body">
                 <h1 className="text-3xl text-center text-accent font-semibold">
                   You have an array of products. Each product has a name, price,
                   description, etc. How will you implement a search to find
@@ -80,10 +80,10 @@ const Blog = () => {
         </div>
       </section>
       <section>
-        <div class="hero min-h-screen bg-base-200">
-          <div class="hero-content flex-col lg:flex-row">
-            <div class="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
-              <div class="card-body">
+        <div className="hero min-h-screen bg-base-200">
+          <div className="hero-content flex-col lg:flex-row">
+            <div className="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
+              <div className="card-body">
                 <h1 className="text-3xl text-center text-accent font-semibold">
                   Why you do not set the state directly in React. For example,
                   if you have const [products, setProducts] = useState([]). Why
@@ -100,8 +100,8 @@ const Blog = () => {
                 </p>
               </div>
             </div>
-            <div class="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
-              <div class="card-body">
+            <div className="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
+              <div className="card-body">
                 <h1 className="text-3xl text-center text-accent font-semibold">
                   What is a unit test? Why should write unit tests?
                 </h1>

@@ -5,6 +5,7 @@ import auth from "../../firebase.init";
 
 const MyProfile = () => {
   const [user] = useAuthState(auth);
+  console.log(user)
   const {
     register,
     handleSubmit,
@@ -28,6 +29,9 @@ const MyProfile = () => {
       </div>
       <div className="card-body items-center text-center">
         <h2 className="card-title">Name: {user?.displayName}</h2>
+      </div>
+      <div className="card-body items-center text-center">
+        <h2 className="card-title">Email: {user?.email}</h2>
       </div>
       <div className="card-actions justify-center mb-5">
         <label htmlFor="my-modal-5" className="btn btn-accent">
